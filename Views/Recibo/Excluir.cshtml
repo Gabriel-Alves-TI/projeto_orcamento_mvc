@@ -1,0 +1,38 @@
+@model projeto_orcamento_mvc.Models.ReciboModel
+@{
+    ViewData["Title"] = "Excluir";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container bg-danger bg-opacity-50 p-5 rounded-2 w-50">
+
+    <div class="mb-5 text-center">
+        <h1 class="text-dark">Excluir Recibo</h1>
+    </div>
+
+    <form method="post" asp-controller="Recibo" asp-action="ConfirmarExclusao">
+        <input type="hidden" asp-for=Id>
+
+        <h2 class="text-dark">Tem certeza que deseja Excluir o Recibo abaixo?</h2>
+
+        <div class="mb-3">
+            <label for="Numeracao" class="form-label text-light">Numeracao:</label>
+            <input type="text" class="form-control w-25" asp-for="Numeracao" id="Numeracao" disabled>
+            <span class="text-danger" asp-validation-for="Numeracao"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Cliente" class="form-label text-light">Cliente:</label>
+            <input type="text" class="form-control" asp-for="Cliente" id="Cliente" placeholder="Quem está emprestando o livro?" value="@Model.Cliente.Nome" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="Cliente" class="form-label text-light">Valor Recibo:</label>
+            <input type="text" class="form-control" asp-for="ValorRecibo" id="ValorRecibo" value="@Model.ValorRecibo" disabled>
+        </div>
+
+        <div class="d-flex gap-4 mt-5">
+            <button type="submit" class="btn btn-danger w-50">Excluir</button>
+            <a class="btn btn-primary w-50" asp-controller="Home" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,64 @@
+
+@model ClienteModel
+@{
+    ViewData["Title"] = "Excluir";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<div class="container bg-secondary bg-opacity-25 rounded-3 border border-dark w-75 p-2 mt-2">
+    <div class="bg-white p-2 rounded-3">
+        <form method="post" asp-controller="Cliente" asp-action="ConfirmarExclusao">
+            <input type="hidden" asp-for="Id">
+            <div class="d-flex justify-content-between input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">Nome:</span>
+                <input type="text" aria-label="Nome" class="form-control me-4" style="height: 30px;" asp-for="Nome" id="Cliente" disabled>
+
+                <span class="input-group-text" style="height: 30px;">CPF/CNPJ:</span>
+                <input type="text" aria-label="Cpf" class="form-control" style="max-width: 20%; height: 30px;" asp-for="CpfCnpj" id="cnpj" oninput="preencherCNPJ()" disabled>
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">CEP:</span>
+                <input type="text" aria-label="Cep" class="form-control me-4" style="max-width: 15%; height: 30px;" asp-for="Cep" id="Cep" oninput="preencherDados()" disabled>
+
+                <span class="input-group-text" style="height: 30px;">Logradouro:</span>
+                <input type="text" aria-label="Logradouro" class="form-control me-4" style="max-width: 80%; height: 30px;" asp-for="Logradouro" id="Logradouro" disabled>
+
+                <span class="input-group-text" style="height: 30px;">Nº:</span>
+                <input type="text" aria-label="Numero" class="form-control" style="max-width: 8%; height: 30px;" asp-for="Numero" id="Numero" disabled>
+            </div>
+            <div class="input-group mt-2"> 
+                <span class="input-group-text" style="height: 30px;">Cidade:</span>
+                <input type="text" aria-label="Cidade" class="form-control me-4" style="max-width: 30%; height: 30px;" asp-for="Cidade" id="Cidade" disabled>
+
+                <span class="input-group-text" style="height: 30px;">Estado:</span>
+                <input type="text" aria-label="Estado" class="form-control me-4" style="max-width: 8%; height: 30px;" asp-for="Estado" id="Estado" disabled>
+            </div>
+            <div class="input-group mt-2 mb-2">
+                <span class="input-group-text" style="height: 30px;">Telefone:</span>
+                <input type="text" aria-label="Telefone" class="form-control" style="max-width: 15%; height: 30px;" asp-for="Telefone" id="Telefone" onkeyup="handlePhone(event)" maxlength="15" disabled>
+            </div>
+            <div class="d-flex gap-2 mt-5 mb-2 justify-content-end">
+                <button type="button" class="btn btn-sm btn-warning w-25" id="btnLimpar">Limpar</button>
+                <button type="submit" class="btn btn-sm btn-success w-25">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <div class="d-flex justify-content-end mt-2">
+        <a type="button" asp-controller="Cliente" asp-action="Index" class="btn btn-sm btn-primary" style="width: 20%" >Voltar</a>
+    </div>
+</div>

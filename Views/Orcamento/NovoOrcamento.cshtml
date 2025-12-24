@@ -1,0 +1,116 @@
+@using projeto_orcamento_mvc.DTO
+@model OrcamentoDTO
+@{
+    ViewData["Title"] = "Novo Orcamento";
+}
+
+<h3 class="text-center">@ViewData["Title"]</h3>
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<div class="container border border-dark rounded-3" id="content">
+    <div class="container">
+        <!--CABEÇALHO-->
+
+        <div class="card mb-3 border-0" style="max-width: 600px;"> 
+            <div class="row g-0">
+                <div class="col-md-4 mt-2">
+                <img src="../img/logo-serralheria.jpg" style="width: 80%;" alt="Logo PROJETO SERRALHERIA">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">PROJETO SERRALHERIA</h5>
+                    <p class="card-text"><strong>CNPJ:</strong> 12.345.678/0001-10 <br> <strong>E-mail:</strong> projeto_serralheria_@@email.com <br> <strong>Endereço:</strong> Seu endereço, 00 - Seu Bairro-SP/SP <br> <strong>Telefone/WhatsApp: </strong>(11) 98765-4321</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" asp-controller="Orcamento" asp-action="NovoOrcamento">
+        <!--NUMERAÇÃO ORÇAMENTO-->
+        <div class="bg-secondary text-light mt-1 d-flex justify-content-center align-items-center rounded w-100">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <label class="col-form-label fw-bold" for="Numeracao" style="font-size: 20px;">ORÇAMENTO Nº</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="rounded bg-secondary text-light border-white" style="width: 60px; height: 30px; font-size: 20px;" asp-for="Numeracao" id="Numeracao">
+                </div>
+            </div>
+        </div>
+
+        <!--DATA DO ORÇAMENTO-->
+        <div class="container d-flex justify-content-end align-items-end mt-2">
+            <input type="text" asp-for="Data" value="@ViewBag.datenow.ToString("dd/MM/yyyy")" class="border-0 fs-5" style="max-width: 110px;" id="Data" readonly>
+        </div>
+
+        <!--DADOS CLIENTE-->
+        <div class="container mt-1 border border-2 rounded-3">
+            <div class="d-flex justify-content-between input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">Cliente:</span>
+                <input type="text" asp-for="Cliente" aria-label="Nome" class="form-control" style="height: 30px;" id="Cliente">
+                <span class="input-group-text me-4 bg-primary bg-opacity-75" style="height: 30px;" id="buscarCliente" data-bs-toggle="modal" data-bs-target="#modalCliente"><i class="bi bi-search fs-5 text-white lupa"></i></span>
+
+                <input type="hidden" id="ClienteId" name="ClienteId">
+                <div id="autocomplete-list" class="autocomplete-items"></div>
+
+                <span class="input-group-text" style="height: 30px;">CPF/CNPJ:</span>
+                <input type="text" class="form-control" style="max-width: 15%; height: 30px;" id="CpfCnpj" oninput="preencherCNPJ()">
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">CEP:</span>
+                <input type="text" class="form-control me-4" style="max-width: 15%; height: 30px;" id="Cep" oninput="preencherDados()">
+
+                <span class="input-group-text" style="height: 30px;">Logradouro:</span>
+                <input type="text" aria-label="Logradouro" class="form-control me-4" style="max-width: 80%; height: 30px;" id="Logradouro">
+
+                <span class="input-group-text" style="height: 30px;">Nº:</span>
+                <input type="text" aria-label="Numero" class="form-control" style="max-width: 8%; height: 30px;" id="Numero">
+            </div>
+            <div class="input-group mt-2"> 
+                <span class="input-group-text" style="height: 30px;">Cidade:</span>
+                <input type="text" aria-label="Cidade" class="form-control me-4" style="max-width: 30%; height: 30px;" id="Cidade">
+
+                <span class="input-group-text" style="height: 30px;">Estado:</span>
+                <input type="text" aria-label="Estado" class="form-control me-4" style="max-width: 8%; height: 30px;" id="Estado">
+            </div>
+            <div class="input-group mt-2 mb-2">
+                <span class="input-group-text" style="height: 30px;">Telefone:</span>
+                <input type="text" aria-label="Telefone" class="form-control" style="max-width: 15%; height: 30px;" id="Telefone" onkeyup="handlePhone(event)" maxlength="15">
+            </div>
+
+            <hr> <!--VALIDADE / PROPOSTA-->
+        
+            <div class="input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">Validade da Proposta:</span>
+                <input type="text" asp-for="ValidadeProposta" aria-label="Telefone" class="form-control" style="max-width: 5%; height: 30px;" id="ValidadeProposta">
+                <span class="input-group-text" style="height: 30px;">Dias</span>
+            </div>
+            <div class="input-group mt-2 mb-2">
+                <span class="input-group-text" style="height: 30px;">Previsão de Entrega:</span>
+                <input type="text" asp-for="Previsao" aria-label="Telefone" class="form-control" style="max-width: 5%; height: 30px;" id="Previsao">
+                <span class="input-group-text" style="height: 30px;">Dias</span>
+            </div>
+        </div>
+        <div class="d-flex gap-4 mt-5 mb-2 justify-content-end">
+            <button type="button" class="btn btn-warning btnLimpar" style="width: 100px;"><i class="bi bi-eraser-fill me-1"></i>Limpar</button>
+            <button type="submit" class="btn btn-success" style="width: 100px;"><i class="bi bi-floppy-fill me-1"></i>Salvar</button>
+            <a type="button" asp-controller="Home" asp-action="Index" asp-route-numeracao="@Model.Numeracao" class="btn btn-primary" style="width: 100px;"><i class="bi bi-arrow-left me-1"></i>Voltar</a>
+        </div>
+    </form>
+<div>
+
+@Html.Partial("_ModalBuscarCliente")

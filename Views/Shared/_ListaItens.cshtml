@@ -1,0 +1,64 @@
+@model IEnumerable<ItemModel>
+@{
+    ViewData["Title"] = "_ListaItens";
+}
+
+<div class="container border border-2 rounded rounded-2 mt-2">
+    <table class="table table-white table-hover" id="ListaItens">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor Material</th>
+                <th>Valor Serviço</th>
+                <th>Valor Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                decimal somaMaterial = 0;
+                decimal somaServico = 0;
+                decimal somaTotal = 0;
+
+                foreach(var item in Model)
+                {
+                <tr class="table-primary">
+                    <td class="fs-5 w-50">@item.Descricao</td>
+                    <td class="fs-5">@item.ValorMaterial</td>
+                    <td class="fs-5">@item.ValorServico</td>
+                    <td class="fs-5 total">@(item.ValorMaterial + item.ValorServico)</td>
+                    <td class="text-end">
+                        <button data-id="@item.Id" class="btn btn-primary btn-sm editar-item"><i class="bi bi-pencil-square"></i></button>
+                        <button asp-controller="Orcamento" asp-action="Excluir" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button>
+                    </td>
+                </tr>
+
+                somaMaterial += item.ValorMaterial;
+                somaServico += item.ValorServico;
+                somaTotal += item.ValorTotal;
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--TOTAIS-->
+    <div class="container mt-2 mb-2 border border-2 rounded">
+        <p class="bg-warning bg-opacity-50 d-flex justify-content-end align-items-end rounded p-1 mt-2">TOTAL:</p>
+        <div class="d-flex flex-column justify-content-end align-items-end mb-2">
+            <div class="input-group mb-3" style="width: 300px;">
+                <span class="input-group-text bg-info bg-opacity-50" style="height: 30px; min-width: 120px;">Valor Material: R$</span>
+                <input type="text" class="form-control" style="height: 30px;" value="@somaMaterial"  id="somaMaterial" disabled>
+            </div>
+
+            <div class="input-group mb-3" style="width: 300px;">
+                <span class="input-group-text bg-warning bg-opacity-50" style="height: 30px; min-width: 120px;">Valor Serviços: R$</span>
+                <input type="text" class="form-control" style="height: 30px;" value="@somaServico" disabled>
+            </div>
+
+            <div class="input-group mb-1" style="width: 300px;">
+                <span class="input-group-text bg-success bg-opacity-50" style="height: 30px; min-width: 150px;">Valor Total: R$</span>
+                <input type="text" class="form-control" style="height: 30px;" value="@somaTotal" disabled>
+            </div>
+        </div>
+    </div>
+</div>

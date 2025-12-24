@@ -1,0 +1,64 @@
+@model projeto_orcamento_mvc.ViewModel.ClientesViewModel
+@{
+    ViewData["Title"] = "Lista de Clientes";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<h3 class="text-center">@ViewData["Title"]</h3>
+
+<div class="container bg-secondary bg-opacity-25 rounded-3 border border-dark w-50 p-2">
+    <div class="bg-white p-2 rounded-3">
+        <div class="w-100 p-2">
+            <a class="btn btn-primary btn-sm fs-6 mt-4 mb-2" style="width: 200px" asp-controller="Cliente" asp-action="Cadastrar"><i class="bi bi-person-fill-add"></i> Novo Cliente</a>
+        </div>
+
+        <table class="table table-warning table-hover" id="Clientes">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Telefone</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.Clientes != null)
+                {
+                    @foreach(var cliente in Model.Clientes)
+                    {
+                        <tr>
+                            <th scope="row">@cliente.Nome</th>
+                            <td>@cliente.Telefone</td>
+                            <td class="text-end">
+                                <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                <a asp-controller="Cliente" asp-action="Excluir" asp-route-id="@cliente.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">
+                            <h5 class="text-primary text-center">Nenhum lançamento encontrado!</h5>
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+</div>

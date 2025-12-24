@@ -1,0 +1,233 @@
+@using System.Globalization
+@using projeto_orcamento_mvc.DTO
+@model OrcamentoDTO
+
+@{
+    ViewData["Title"] = "Editar Orçamento";
+}
+
+<h3 class="text-center">@ViewData["Title"]</h3>
+
+<div class="container border border-dark rounded-3">
+    <div class="container">
+        <!--CABEÇALHO-->
+
+        <div class="card mb-3 border-0" style="max-width: 600px;"> 
+            <div class="row g-0">
+                <div class="col-md-4 mt-2">
+                <img src="/img/logo-serralheria.jpg" style="width: 80%;" alt="Logo LM SERRALHERIA">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">PROJETO SERRALHERIA</h5>
+                    <p class="card-text"><strong>CNPJ:</strong> 12.345.678/0001-10 <br> <strong>E-mail:</strong> projeto_serralheria_@@email.com <br> <strong>Endereço:</strong> Seu endereço, 00 - Seu Bairro-SP/SP <br> <strong>Telefone/WhatsApp: </strong>(11) 98765-4321</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" asp-controller="Orcamento" asp-action="Editar">
+        <input type="hidden" asp-for=Id>
+        <!--NUMERAÇÃO ORÇAMENTO-->
+        <div class="bg-secondary text-light mt-1 d-flex justify-content-center align-items-center rounded w-100">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <label class="col-form-label fw-bold" for="Numeracao" style="font-size: 20px;">ORÇAMENTO Nº</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="rounded bg-secondary text-light border-white" style="width: 60px; height: 30px; font-size: 20px;" asp-for="Numeracao" id="Numeracao">
+                </div>
+            </div>
+        </div>
+
+        <!--DATA DO ORÇAMENTO-->
+        <div class="container d-flex justify-content-end align-items-end mt-2">
+            <input type="text" asp-for="Data" value="@Model.Data.ToString("dd/MM/yyyy")" class="border-0 fs-5" style="max-width: 110px;" id="Data" readonly>
+        </div>
+
+        <!--DADOS CLIENTE-->
+        <div class="container mt-1 border border-2 rounded-3">
+            <div class="d-flex justify-content-between input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">Cliente:</span>
+                <input type="text" asp-for="Cliente" aria-label="Nome" class="form-control" style="height: 30px;" id="Cliente" readonly>
+                <span class="input-group-text me-4 bg-primary bg-opacity-75" style="height: 30px;" id="buscarCliente" data-bs-toggle="modal" data-bs-target="#modalCliente"><i class="bi bi-search fs-5 text-white lupa"></i></span>
+
+                <input type="hidden" id="ClienteId" name="ClienteId">
+                <div id="autocomplete-list" class="autocomplete-items"></div>
+
+                <span class="input-group-text" style="height: 30px;">CPF/CNPJ:</span>
+                <input type="text" asp-for="CpfCnpj" aria-label="Cpf" class="form-control" style="max-width: 15%; height: 30px;" id="CpfCnpj" oninput="preencherCNPJ()" readonly>
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">CEP:</span>
+                <input type="text" asp-for="Cep" aria-label="Cep" class="form-control me-4" style="max-width: 15%; height: 30px;" id="Cep" oninput="preencherDados()" readonly>
+
+                <span class="input-group-text" style="height: 30px;">Logradouro:</span>
+                <input type="text" asp-for="Logradouro" aria-label="Logradouro" class="form-control me-4" style="max-width: 80%; height: 30px;" id="Logradouro"readonly>
+
+                <span class="input-group-text" style="height: 30px;">Nº:</span>
+                <input type="text" asp-for="Numero" aria-label="Numero" class="form-control" style="max-width: 8%; height: 30px;" id="Numero" readonly>
+            </div>
+            <div class="input-group mt-2"> 
+                <span class="input-group-text" style="height: 30px;">Cidade:</span>
+                <input type="text" asp-for="Cidade" aria-label="Cidade" class="form-control me-4" style="max-width: 30%; height: 30px;" id="Cidade" readonly>
+
+                <span class="input-group-text" style="height: 30px;">Estado:</span>
+                <input type="text" asp-for="Estado" aria-label="Estado" class="form-control me-4" style="max-width: 8%; height: 30px;" id="Estado" readonly>
+            </div>
+            <div class="input-group mt-2 mb-2">
+                <span class="input-group-text" style="height: 30px;">Telefone:</span>
+                <input type="text" asp-for="Telefone" aria-label="Telefone" class="form-control" style="max-width: 15%; height: 30px;" id="Telefone" onkeyup="handlePhone(event)" maxlength="15" readonly>
+            </div>
+        
+            <hr> <!--VALIDADE / PROPOSTA-->
+        
+            <div class="input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">Validade da Proposta:</span>
+                <input type="text" asp-for="ValidadeProposta" aria-label="Telefone" class="form-control" style="max-width: 5%; height: 30px;" id="ValidadeProposta">
+                <span class="input-group-text" style="height: 30px;">Dias</span>
+            </div>
+            <div class="input-group mt-2 mb-2">
+                <span class="input-group-text" style="height: 30px;">Previsão de Entrega:</span>
+                <input type="text" asp-for="Previsao" aria-label="Telefone" class="form-control" style="max-width: 5%; height: 30px;" id="Previsao">
+                <span class="input-group-text" style="height: 30px;">Dias</span>
+            </div>
+        </div>
+        <div class="d-flex gap-4 mt-2 mb-2 justify-content-end">
+            <button type="button" class="btn btn-warning btnLimpar" style="width: 100px;"><i class="bi bi-eraser-fill me-1"></i>Limpar</button>
+            <button type="submit" class="btn btn-success" style="width: 100px;"><i class="bi bi-floppy-fill me-1"></i>Salvar</button>
+        </div>
+    </form>
+
+    <!--DESCRIÇÃO DOS ITENS-->
+    <div class="bg-secondary text-light mt-2 d-flex justify-content-center align-items-center rounded w-100">
+        <h5 class="mt-1">DESCRIÇÃO DOS ITENS</h5>
+    </div>
+
+    <!--FORM NOVO ITEM-->
+    <div class="border border-2 rounded-2 p-2 mt-2" id="itemTemplate">
+        @{
+            if (Model.Id == null)
+            {
+                <div class="text-center text-danger">
+                    Salve o orçamento antes de adicionar itens.
+                </div>
+            }
+            else
+            {
+                <form id="formNovoItem">
+                    <input type="hidden" name="OrcamentoId" value="@Model.Id" />
+
+                    <div class="input-group mt-2">
+                        <span class="input-group-text">Novo Item</span>
+                        <textarea class="form-control" name="Descricao" aria-label="With textarea" id="DescricaoItem" value="qualquer coisa"></textarea>
+                    </div>
+
+                    <hr>
+
+                    <div class="container mt-2 p-1">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column align-items-end mx-auto">
+                                <div class="input-group mb-3" style="width: 250px;">
+                                    <span class="input-group-text" style="height: 30px;">Valor Material: R$</span>
+                                    <input type="text" step="0.01" name="ValorMaterial" class="form-control material" style="height: 30px;" id="ValorMaterial">
+                                </div>
+                                <div class="input-group mb-3" style="width: 250px;">
+                                    <span class="input-group-text" style="height: 30px;">Valor Serviço: R$</span>
+                                    <input type="text" step="0.01" name="ValorServico" class="form-control servicos" style="height: 30px;" id="ValorServico">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>  
+                    </div>
+                </form>
+            }
+        }
+    </div>
+    <div id="bloco-itens">
+        @await Html.PartialAsync("_ListaItens", Model.Itens)
+    </div>
+
+    <div id="bloco-editar-item" style="display: none;"></div>
+
+    <!--DADOS DO PAGAMENTO-->
+    <div class="bg-secondary text-light mt-2 d-flex justify-content-center align-items-center rounded w-100">
+        <h5 class="mt-1">DADOS DO PAGAMENTO</h5>
+    </div>
+
+    <div class="container mt-2 border border-2 rounded p-2">
+        <label class="form-label">Materiais</label>
+        <input class="form-control" type="text" value="O valor referente aos materiais, deverá, impreterivelmente, ser pago À VISTA no momento da aprovação do orçamento, para início da execução do(s) serviço(s)." aria-label="Disabled input example" disabled readonly>
+        <label class="form-label mt-2">Mão de Obra</label>
+        <input class="form-control" type="text" value="AO TÉRMINO DO SERVIÇO À VISTA" aria-label="Disabled input example" disabled readonly>
+        <label class="form-label mt-2">Forma de Pagamento</label>
+        <input class="form-control" type="text" value="PIX; TRANSFERÊNCIA BANCÁRIA; DINHEIRO" aria-label="Disabled input example" disabled readonly>
+        <label class="form-label mt-2">Observações</label>
+        <input class="form-control" type="text" value="" aria-label="Disabled input example">
+    </div>
+
+    <div class="container mt-2 d-flex justify-content-between">
+        <div class="d-flex">
+            <div class="h6 pb-5 mb-4 text-dark border-bottom border-dark">
+                Assinatura do Cliente
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <div class="h6 pb-5 mb-4 text-dark border-bottom border-dark">
+                Assinatura do Prestador
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-4 mt-5 mb-2 justify-content-end">
+        <a type="button" asp-controller="Home" asp-action="Index" class="btn btn-primary w-25">Voltar</a>
+        <a type="button" asp-controller="Orcamento" asp-action="OrcamentoRelatorio" asp-route-id="@Model.Id" class="btn btn-success w-25" >Gerar PDF</a>
+        @* <a type="button" asp-controller="Orcamento" asp-action="CreateReport" asp-route-id="@Model.Id" class="btn btn-success w-25" >Gerar Relatorio</a> *@
+    </div>
+</div>
+
+@Html.Partial("_ModalBuscarCliente")
+
+<script>
+    $(document).on("submit", "#formNovoItem", function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '@Url.Action("Adicionar", "Item")',
+            method: "POST",
+            data: $(this).serialize(),
+            success: function (html) {
+                $("#bloco-itens").html(html);
+                $("#formNovoItem")[0].reset();
+
+                atualizarTotalMaterial(@Model.Id);
+            }
+        });
+    });
+
+    $(document).on("click", ".editar-item", function () {
+        var id = $(this).data("id");
+
+        $.get("/Orcamento/EditarItem/" + id, function (html) {
+            $("#area-de-edicao").html(html);
+        });
+    });
+
+    $(document).on("click", ".editar-item", function () {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: '@Url.Action("EditarItem", "Orcamento")' + '/' + id,
+            type: "GET",
+            success: function (html) {
+                $("#itemTemplate").hide();
+                $("#bloco-itens").hide();
+                $("#bloco-editar-item").html(html).show();
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,147 @@
+@using projeto_orcamento_mvc.DTO
+@model ReciboDTO
+@{
+    ViewData["Title"] = "Cadastrar Recibo";
+}
+
+<h3 class="text-center">@ViewData["Title"]</h3>
+
+<div class="container border border-dark rounded-3 p-3" id="content">
+    <div class="container">
+        <!--CABEÇALHO-->
+
+        <div class="card mb-3 border-0" style="max-width: 600px;"> 
+            <div class="row g-0">
+                <div class="col-md-4 mt-2">
+                <img src="../img/logo-serralheria.jpg" style="width: 80%;" alt="Logo PROJETO SERRALHERIA">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">PROJETO SERRALHERIA</h5>
+                    <p class="card-text"><strong>CNPJ:</strong> 12.345.678/0001-10 <br> <strong>E-mail:</strong> projeto_serralheria_@@email.com <br> <strong>Endereço:</strong> Seu endereço, 00 - Seu Bairro-SP/SP <br> <strong>Telefone/WhatsApp: </strong>(11) 98765-4321</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" asp-controller="Recibo" asp-action="Cadastrar">
+        <div asp-validation-summary="All" class="text-warning"></div>
+
+        <!--NUMERAÇÃO ORÇAMENTO-->
+        <div class="bg-secondary text-light mt-1 d-flex justify-content-center align-items-center rounded w-100">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <label class="col-form-label fw-bold" for="Numeracao" style="font-size: 20px;">RECIBO Nº</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="rounded bg-secondary text-light border-white" style="width: 60px; height: 30px; font-size: 20px;" asp-for="Numeracao" id="Numeracao">
+                </div>
+            </div>
+        </div>
+
+        <!--DATA DO ORÇAMENTO-->
+        <div class="container d-flex justify-content-end align-items-end mt-2">
+            <input type="text" asp-for="Data" value="@ViewBag.datenow.ToString("dd/MM/yyyy")" class="border-0 fs-5" style="max-width: 110px;" id="Data" readonly>
+        </div>
+
+        <!--DADOS CLIENTE-->
+        <div class="container mt-1 border border-2 rounded-3 mb-2">
+            <div class="d-flex justify-content-between input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">Cliente:</span>
+                <input type="text" asp-for="Cliente" aria-label="Nome" class="form-control" style="height: 30px;" id="Cliente">
+                <span class="input-group-text me-4 bg-primary bg-opacity-75" style="height: 30px;" id="buscarCliente" data-bs-toggle="modal" data-bs-target="#modalCliente"><i class="bi bi-search fs-5 text-white lupa"></i></span>
+
+                <input type="hidden" id="ClienteId" name="ClienteId">
+                <div id="autocomplete-list" class="autocomplete-items"></div>
+
+                <span class="input-group-text" style="height: 30px;">CPF/CNPJ:</span>
+                <input type="text" aria-label="Cpf" class="form-control" style="max-width: 15%; height: 30px;" id="CpfCnpj" oninput="preencherCNPJ()">
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text" style="height: 30px;">CEP:</span>
+                <input type="text" aria-label="Cep" class="form-control me-4" style="max-width: 15%; height: 30px;" id="Cep" oninput="preencherDados()">
+
+                <span class="input-group-text" style="height: 30px;">Logradouro:</span>
+                <input type="text" aria-label="Logradouro" class="form-control me-4" style="max-width: 80%; height: 30px;" id="Logradouro">
+
+                <span class="input-group-text" style="height: 30px;">Nº:</span>
+                <input type="text" aria-label="Numero" class="form-control" style="max-width: 8%; height: 30px;" id="Numero">
+            </div>
+            <div class="input-group mt-2"> 
+                <span class="input-group-text" style="height: 30px;">Cidade:</span>
+                <input type="text" aria-label="Cidade" class="form-control me-4" style="max-width: 30%; height: 30px;" id="Cidade">
+
+                <span class="input-group-text" style="height: 30px;">Estado:</span>
+                <input type="text" aria-label="Estado" class="form-control me-4" style="max-width: 8%; height: 30px;" id="Estado">
+            </div>
+            <div class="input-group mt-2 mb-2">
+                <span class="input-group-text" style="height: 30px;">Telefone:</span>
+                <input type="text" aria-label="Telefone" class="form-control" style="max-width: 15%; height: 30px;" id="Telefone" onkeyup="handlePhone(event)" maxlength="15">
+            </div>
+            <div class="d-flex gap-4 mt-2 mb-2 justify-content-end">
+                <button type="button" class="btn btn-warning btnLimpar" style="width: 100px;"><i class="bi bi-eraser-fill me-1"></i>Limpar</button>
+            </div>
+
+            <!--DESCRIÇÃO-->
+            <div class="bg-secondary text-light mt-2 d-flex justify-content-center align-items-center rounded w-100">
+                <h5 class="mt-1">DESCRIÇÃO</h5>
+            </div>
+
+            <div class="container mt-2 border border-2 rounded-2 p-2">
+                <div id="inputPadrao">
+                    <p class="ms-2">Recebemos de <span><strong id="text-cliente">*cliente*</strong></span></p>
+                    <textarea class="form-control ms-2" id="Descricao" cols="80" rows="2" style="max-width: 90%;" asp-for="Descricao" placeholder="correspondente aos serviços" style="font-style: italic;"></textarea>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="col-auto">
+                            <label class="col-form-label fw-bold ms-2" asp-for="ValorRecibo">Valor Recibo:</label>
+                        </div>
+                        <div class="col-auto ms-2">
+                            <input type="text" step="0.01" class="form-control" asp-for="ValorRecibo" style="height: 30px; max-width: 100px" id="ValorRecibo">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none" id="inputCoelhoNeto">
+                    <p id="p1">Recebemos de <strong id="text-coelho">*cliente*</strong> <span id="textCoelhoNeto">o valor de: R$<input type="text" asp-for="ValorRecibo" class="ms-2" style="max-width: 100px" id="valorCoelho">  referente a nota fiscal de nº<input type="number" class="ms-2" style="max-width: 50px" asp-for="NumNotaFiscal" id="numNotaFiscal"></span></p>
+                    <p><strong>Observações:</strong> As notas fiscais são emitidas por LUZIA DE SOUZA MENEZES (CPF: 176.260.258.06) vinculado ao CNPJ: 17.317.683/0001-08. </p>
+                    <p>Informamos também, que, em caso de pagamentos via BOLETO o nome pertencente ao mesmo trata-se do nome FANTASIA da empresa, ao qual, a proprietária e responsável é LUZIA DE SOUZA MENEZES.</p>
+                </div>
+            </div>
+
+            <!--DADOS DO PAGAMENTO-->
+        <div class="bg-secondary text-light mt-2 d-flex justify-content-center align-items-center rounded w-100">
+            <h5 class="mt-1">DADOS DO PAGAMENTO</h5>
+        </div>
+
+        <div class="container mt-2 border border-2 rounded p-2">
+            <label class="form-label">Materiais</label>
+            <textarea class="form-control" type="text" rows="2" style="white-space: pre-line;" disabled readonly>"O valor referente aos materiais, deverá, impreterivelmente, ser pago À VISTA no momento da aprovação do orçamento, para início da execução do(s) serviço(s)."</textarea>
+            <label class="form-label mt-2">Mão de Obra</label>
+            <input class="form-control" type="text" value="AO TÉRMINO DO SERVIÇO À VISTA" aria-label="Disabled input example" disabled readonly>
+            <label class="form-label mt-2">Forma de Pagamento</label>
+            <input class="form-control" type="text" value="PIX; TRANSFERÊNCIA BANCÁRIA; DINHEIRO" aria-label="Disabled input example" disabled readonly>
+            <label class="form-label mt-2">Observações</label>
+            <input class="form-control" type="text" value="" aria-label="Disabled input example">
+        </div>
+
+        <div class="container mt-2 d-flex justify-content-between">
+            <div class="d-flex">
+                <div class="h6 pb-5 mb-4 text-dark border-bottom border-dark">
+                    Assinatura do Cliente
+                </div>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <div class="h6 pb-5 mb-4 text-dark border-bottom border-dark">
+                    Assinatura do Prestador
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-4 mt-5 mb-2 justify-content-end">
+            <button type="submit" class="btn btn-success w-25">Salvar</button>
+            <button type="button" class="btn btn-primary w-25" id="btn-gerarPDF" onclick="gerarPdf()">Gerar PDF</button>
+        </div>
+    </form>
+</div>
+
+@Html.Partial("_ModalBuscarCliente")

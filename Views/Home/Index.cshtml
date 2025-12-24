@@ -1,0 +1,127 @@
+﻿
+@model HomeIndexView
+@{
+    ViewData["Title"] = "Página Inicial";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+
+<div class="container bg-secondary bg-opacity-25 rounded-3 border border-dark">
+    <div class="d-flex justify-content-between">
+        <div class="w-100 p-2">
+            <h3>Orçamentos</h3>
+
+            <a class="btn btn-primary btn-sm fs-6 mt-4 mb-2" style="width: 200px" asp-controller="Orcamento" asp-action="NovoOrcamento"><i class="bi bi-file-earmark-plus"></i> Novo Orçamento</a>
+        </div>
+        
+        <div class="w-100 p-2">
+            <h3>Recibos</h3>
+
+            <a class="btn btn-primary btn-sm fs-6 mt-4 mb-2" style="width: 200px" asp-controller="Recibo" asp-action="Cadastrar"><i class="bi bi-file-earmark-plus"></i> Novo Recibo</a>
+        </div>
+    </div>
+    
+    <div class="d-flex justify-content-between gap-2 mb-2">
+        <div class="d-flex w-100">
+            <div class="w-100 p-2 bg-white rounded rounded-2">
+                <table class="table table-warning table-hover" id="Orcamentos">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nº Orc</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Valor Total</th>
+                            <th scope="col">Data</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.Orcamentos != null)
+                        {
+                            @foreach(var orcamento in Model.Orcamentos)
+                            {
+                                <tr>
+                                    <th scope="row">@orcamento.Numeracao</th>
+                                    <td>@orcamento.Cliente.Nome</td>
+                                    <td>@orcamento.ValorTotal</td>
+                                    <td>@orcamento.Data.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <a asp-controller="Orcamento" asp-action="Editar" asp-route-id="@orcamento.Id" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                        <a asp-controller="Orcamento" asp-action="Excluir" asp-route-id="@orcamento.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <h5 class="text-primary text-center">Nenhum lançamento encontrado!</h5>
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex w-100">
+            <div class="w-100 p-2 bg-white rounded rounded-2">
+                <table class="table table-warning table-hover" id="Recibos">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nº Rec</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Data</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            if (Model.Recibos != null)
+                            {
+                                @foreach(var recibo in Model.Recibos)
+                                {
+                                    <tr>
+                                        <th scope="row">@recibo.Numeracao</th>
+                                        <td>@recibo.Cliente.Nome</td>
+                                        <td>@recibo.ValorRecibo</td>
+                                        <td>@recibo.Data.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            <a asp-controller="Recibo" asp-action="Editar" asp-route-id="@recibo.Id" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                            <a asp-controller="Recibo" asp-action="Excluir" asp-route-id="@recibo.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5">
+                                        <h5 class="text-primary text-center">Nenhum lançamento encontrado!</h5>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
