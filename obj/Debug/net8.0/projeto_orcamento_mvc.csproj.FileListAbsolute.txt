@@ -372,3 +372,4 @@ C:\Users\user\Desktop\projeto-orcamento-mvc\projeto_orcamento_mvc\obj\Debug\net8
 C:\Users\user\Desktop\projeto-orcamento-mvc\projeto_orcamento_mvc\obj\Debug\net8.0\projeto_.6F68B88B.Up2Date
 C:\Users\user\Desktop\projeto-orcamento-mvc\projeto_orcamento_mvc\obj\Debug\net8.0\projeto_orcamento_mvc.genruntimeconfig.cache
 C:\Users\user\Desktop\projeto-orcamento-mvc\projeto_orcamento_mvc\obj\Debug\net8.0\ref\projeto_orcamento_mvc.dll
+C:\Users\user\Desktop\projeto-orcamento-mvc\projeto_orcamento_mvc\obj\Debug\net8.0\projeto_orcamento_mvc.sourcelink.json

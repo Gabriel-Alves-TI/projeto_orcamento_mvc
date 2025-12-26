@@ -138,8 +138,9 @@
         </div>
 
         <div class="d-flex gap-4 mt-5 mb-2 justify-content-end">
-            <button type="submit" class="btn btn-success w-25">Salvar</button>
-            <button type="button" class="btn btn-primary w-25" id="btn-gerarPDF" onclick="gerarPdf()">Gerar PDF</button>
+            <a type="button" asp-controller="Home" asp-action="Index" class="btn btn-primary" style="width: 100px;">Voltar</a>
+            <a type="button" asp-controller="Recibo" asp-action="ReciboRelatorio" asp-route-id="@Model.Id" class="btn btn-success" >Gerar PDF</a>
+            <button type="submit" class="btn btn-success" style="width: 100px;"><i class="bi bi-floppy-fill me-1"></i>Salvar</button>
         </div>
     </form>
 </div>

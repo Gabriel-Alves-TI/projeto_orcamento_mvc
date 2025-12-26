@@ -86,6 +86,7 @@ namespace projeto_orcamento_mvc.Controllers
             }
 
             var itens = await _itemInterface.ListarItens(itemDto.OrcamentoId);
+            Debug.WriteLine(itemDto.OrcamentoId);
             
             if (itens.Status)
             {

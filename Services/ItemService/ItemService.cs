@@ -127,10 +127,12 @@ namespace projeto_orcamento_mvc.Services.ItemService
                     .Where(i => i.OrcamentoId == orcamentoId)
                     .ToListAsync();
 
+                //Retorna sempre true para consulta da lista de itens
+                response.Status = true;
+
                 if (!listaItens.Any())
                 {
                     response.Mensagem = "Nenhum item localizado.";
-                    response.Status = false;
                     return response;
                 }
 

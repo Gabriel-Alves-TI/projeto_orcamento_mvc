@@ -230,4 +230,24 @@
         });
     });
 
+    $(document).on("click", ".excluir-item", function () {
+        let id = $(this).data("id");
+        let orcamentoId = $(this).data("orcamento-id");
+
+        $.ajax({
+            url: '@Url.Action("Excluir", "Item")',
+            type: "POST",
+            data: {
+                Id: id,
+                OrcamentoId: orcamentoId
+            },
+            success: function (html) {
+                $("#bloco-itens").html(html);
+            },
+            error: function () {
+                alert("Erro ao excluir item.");
+            }
+        });
+    });
+
 </script>

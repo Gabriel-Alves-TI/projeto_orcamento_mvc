@@ -49,6 +49,8 @@ namespace projeto_orcamento_mvc.Controllers
             if (!ModelState.IsValid)
             {
                 Console.WriteLine("Está vindo para cá");
+                // ModelState.AddModelError("", "CPF/CNPJ é obrigatório");
+                return View(clienteDto);
             }
 
             if (ModelState.IsValid)
@@ -68,7 +70,7 @@ namespace projeto_orcamento_mvc.Controllers
                 return RedirectToAction("Index");
             }
             TempData["MensagemErro"] = "Ocorreu algum erro ao salvar o Cliente.";
-            return View(clienteDto);   
+            return RedirectToAction("Index");   
         }
 
         public async Task<IActionResult> Editar(int id)

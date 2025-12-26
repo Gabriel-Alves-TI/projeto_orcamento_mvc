@@ -29,7 +29,7 @@
                     <td class="fs-5 total">@(item.ValorMaterial + item.ValorServico)</td>
                     <td class="text-end">
                         <button data-id="@item.Id" class="btn btn-primary btn-sm editar-item"><i class="bi bi-pencil-square"></i></button>
-                        <button asp-controller="Orcamento" asp-action="Excluir" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button>
+                        <button data-id="@item.Id" data-orcamento-id="@item.OrcamentoId" class="btn btn-danger btn-sm excluir-item"><i class="bi bi-trash3"></i></button>
                     </td>
                 </tr>
 
