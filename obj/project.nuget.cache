@@ -94,7 +94,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: Microsoft.CodeAnalysis.VisualBasic 4.0.1 requires Microsoft.CodeAnalysis.Common (= 4.0.1) but version Microsoft.CodeAnalysis.Common 4.8.0 was resolved.",
+      "message": "Versão detectada do pacote fora da restrição de dependência: Microsoft.CodeAnalysis.VisualBasic 4.0.1 requer Microsoft.CodeAnalysis.Common (= 4.0.1), mas a versão Microsoft.CodeAnalysis.Common 4.8.0 foi resolvida.",
       "libraryId": "Microsoft.CodeAnalysis.Common",
       "targetGraphs": [
         "net8.0"
