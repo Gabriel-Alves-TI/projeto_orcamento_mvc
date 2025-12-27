@@ -83,12 +83,11 @@ namespace projeto_orcamento_mvc.Controllers
                 else
                 {
                     TempData["MensagemErro"] = recibo.Mensagem;
-                    return RedirectToAction("Index", "Home");
+                    return View(reciboDto);
                 }
             }
 
-            TempData["MensagemErro"] = "Ocorreu algum erro ao salvar o Orçamento.";
-            return View(reciboDto);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
