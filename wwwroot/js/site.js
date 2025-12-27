@@ -40,17 +40,9 @@ async function preencherDados() {
 }
 
 async function preencherCNPJ() {
-    const cnpjInput = document.getElementById('cnpj');
+    const cnpjInput = document.getElementById('CpfCnpj');
     const cnpj = cnpjInput.value.replace(/\D/g, ''); 
     const elementosForm = document.querySelectorAll('#inputPadrao');
-    // const inputCoelhoNeto = document.getElementById('inputCoelhoNeto');
-
-    if (cnpj === "49526098000104"){
-        elementosForm.forEach(elemento => {
-            elemento.classList.add('d-none');
-        })
-        // inputCoelhoNeto.classList.remove('d-none');
-    } 
 
     if (cnpj.length === 14) {
         try {
@@ -58,8 +50,6 @@ async function preencherCNPJ() {
             const clienteInput = document.getElementById('Cliente');
             clienteInput.value = detalhes.razao_social || '';
 
-            // Chama a função alterarCliente para atualizar o texto do cliente
-            // alterarCliente({ target: clienteInput });
         } catch (error) {
             alert(error.message); 
         }
@@ -85,25 +75,7 @@ async function consultaCNPJ(cnpj) {
 const clienteInput = document.getElementById('Cliente');
 const textCliente = document.getElementById('text-cliente');
 
-// const alterarCliente = (event) => {
-//     textCliente.innerText = event.target.value;
-// };
 
-// clienteInput.addEventListener('input', alterarCliente);
-
-
-function atualizarTotalMaterial(orcamentoId) {
-    $.ajax({
-        url: '/Orcamento/SomaTotalMaterial',
-        type: 'GET',
-        data:{ orcamentoId: orcamentoId },
-        success: function (total) {
-            $('#somaMaterial').text(
-                total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })
-            );
-        }
-    })
-}
 
 $(document).on("click", ".btnSelecionar", function () {
     $("#modalCliente").modal('hide');

@@ -105,7 +105,6 @@ namespace projeto_orcamento_mvc.Services.ReciboService
                         Descricao = reciboDto.Descricao,
                         ValorRecibo = reciboDto.ValorRecibo,
                         Vencimento = reciboDto.Vencimento,
-                        NumNotaFiscal = reciboDto.NumNotaFiscal
                     };
 
                     _context.Recibos.Add(recibo);
@@ -168,7 +167,6 @@ namespace projeto_orcamento_mvc.Services.ReciboService
                         recibo.Descricao = reciboDto.Descricao;
                         recibo.ValorRecibo = reciboDto.ValorRecibo;
                         recibo.Vencimento = reciboDto.Vencimento;
-                        recibo.NumNotaFiscal = reciboDto.NumNotaFiscal;
 
                         _context.Recibos.Update(recibo);
                         await _context.SaveChangesAsync();
@@ -198,7 +196,6 @@ namespace projeto_orcamento_mvc.Services.ReciboService
                     recibo.Descricao = reciboDto.Descricao;
                     recibo.ValorRecibo = reciboDto.ValorRecibo;
                     recibo.Vencimento = reciboDto.Vencimento;
-                    recibo.NumNotaFiscal = reciboDto.NumNotaFiscal;
 
                     _context.Recibos.Update(recibo);
                     await _context.SaveChangesAsync();

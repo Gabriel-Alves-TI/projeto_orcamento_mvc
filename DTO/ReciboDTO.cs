@@ -27,6 +27,5 @@ namespace projeto_orcamento_mvc.DTO
         public string? Descricao { get; set; }
         public decimal ValorRecibo { get; set; }
         public DateTime? Vencimento { get; set; }
-        public int? NumNotaFiscal { get; set; }
     }
 }

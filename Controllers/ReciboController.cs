@@ -122,7 +122,6 @@ namespace projeto_orcamento_mvc.Controllers
                 Descricao = recibo.Descricao,
                 ValorRecibo = recibo.ValorRecibo,
                 Vencimento = recibo.Vencimento,
-                NumNotaFiscal = recibo.NumNotaFiscal
             };
 
             return View(reciboDTO);
