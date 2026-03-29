@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("projeto_orcamento_mvc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aeb82d91e50c7449412bb4cccc5fa3b2c76b0f0e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d5a9980f758d858573badd5f0c17c2595f10c14")]
 [assembly: System.Reflection.AssemblyProductAttribute("projeto_orcamento_mvc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("projeto_orcamento_mvc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
