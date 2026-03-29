@@ -261,6 +261,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\user\\Desktop\\projeto-orcamento-mvc\\projeto_orcamento_mvc\\wwwroot\\pdf\\Orçamento 1 - Gabriel (6).pdf",
+      "PackagePath": "staticwebassets\\pdf\\Orçamento 1 - Gabriel (6).pdf"
+    },
+    {
       "Id": "C:\\Users\\user\\Desktop\\projeto-orcamento-mvc\\projeto_orcamento_mvc\\wwwroot\\reports\\Orcamento.frx",
       "PackagePath": "staticwebassets\\reports\\Orcamento.frx"
     },

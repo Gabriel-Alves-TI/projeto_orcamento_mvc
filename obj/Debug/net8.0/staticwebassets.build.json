@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EzRq32FRawNLmODQSMbrLe59dtuVX89eWr4Kq+rH7Pw=",
+  "Hash": "M+55nkWglxEcj939fvZH5Pa67Wo75+lEtlg2eItXJfE=",
   "Source": "projeto_orcamento_mvc",
   "BasePath": "_content/projeto_orcamento_mvc",
   "Mode": "Default",
@@ -1269,6 +1269,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\projeto-orcamento-mvc\\projeto_orcamento_mvc\\wwwroot\\pdf\\Orçamento 1 - Gabriel (6).pdf",
+      "SourceId": "projeto_orcamento_mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\projeto-orcamento-mvc\\projeto_orcamento_mvc\\wwwroot\\",
+      "BasePath": "_content/projeto_orcamento_mvc",
+      "RelativePath": "pdf/Orçamento 1 - Gabriel (6).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pdf\\Orçamento 1 - Gabriel (6).pdf"
     },
     {
       "Identity": "C:\\Users\\user\\Desktop\\projeto-orcamento-mvc\\projeto_orcamento_mvc\\wwwroot\\reports\\Orcamento.frx",
